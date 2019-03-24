@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using PersonalMailer.Attributes;
 
 namespace PersonalMailer.Requests
 {
@@ -17,6 +18,7 @@ namespace PersonalMailer.Requests
         public string MailMessage { get; set; }
 
         [Required]
+        [RecaptchaValidation]
         public string Recaptcha { get; set; }
     }
 }

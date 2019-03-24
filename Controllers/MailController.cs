@@ -24,7 +24,6 @@ namespace PersonalMailer.Controllers
                 return BadRequest();
             }
 
-            // todo validate recaptcha!
             var result = await _sender.PrepareAndSendAsync(request.SenderName, request.SenderEmail, request.MailSubject, request.MailMessage);
 
             return new SendMailResult()
