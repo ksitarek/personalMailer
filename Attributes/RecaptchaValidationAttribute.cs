@@ -11,7 +11,7 @@ namespace PersonalMailer.Attributes
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var token = value.ToString();
+            var token = value?.ToString();
 
             Lazy<ValidationResult> errorResult = new Lazy<ValidationResult>(
                 () => new ValidationResult("ReCaptcha validation failed", new[] { validationContext.MemberName }));
