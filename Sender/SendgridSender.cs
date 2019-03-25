@@ -53,7 +53,24 @@ namespace PersonalMailer.Sender
 
             message.TemplateId = _configuration.TemplateId;
 
+            // handle sandbox mode
+            ConfigureOptionalSandbox(message);
+
             return message;
+        }
+
+        private void ConfigureOptionalSandbox(SendGridMessage message)
+        {
+            if (_configuration.Sandbox)
+            {
+                message.MailSettings = new MailSettings()
+                {
+                    SandboxMode = new SandboxMode()
+                    {
+                        Enable = true
+                    }
+                };
+            }
         }
 
         private Personalization BuildPersonalization(object templateData)

@@ -7,5 +7,7 @@ namespace PersonalMailer.Sender
 
         public string RecipientEmail { get; set; }
         public string RecipientName { get; set; }
+
+        public bool Sandbox { get; set; }
     }
 }
