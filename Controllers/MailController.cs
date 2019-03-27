@@ -18,14 +18,15 @@ namespace PersonalMailer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<SendMailResult>> Process([FromBody]SendMailRequest request)
+        public ActionResult<SendMailResult> Process([FromBody]SendMailRequest request)
         {
             if (ModelState.IsValid == false)
             {
                 return BadRequest();
             }
-
+#pragma warning disable 1998
             BackgroundJob.Enqueue(() => _sender.PrepareAndSendAsync(request.SenderName, request.SenderEmail, request.MailSubject, request.MailMessage));
+#pragma warning restore 1998
 
             return new SendMailResult()
             {
