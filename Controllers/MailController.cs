@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using PersonalMailer.Requests;
 using PersonalMailer.Results;
@@ -24,11 +25,11 @@ namespace PersonalMailer.Controllers
                 return BadRequest();
             }
 
-            var result = await _sender.PrepareAndSendAsync(request.SenderName, request.SenderEmail, request.MailSubject, request.MailMessage);
+            BackgroundJob.Enqueue(() => _sender.PrepareAndSendAsync(request.SenderName, request.SenderEmail, request.MailSubject, request.MailMessage));
 
             return new SendMailResult()
             {
-                Success = result
+                Success = true
             };
         }
     }

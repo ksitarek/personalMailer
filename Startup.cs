@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hangfire;
+using Hangfire.MemoryStorage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,6 +29,7 @@ namespace PersonalMailer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSendGrid(Configuration.GetSection("Sendgrid"));
+            services.AddHangfire(c => c.UseMemoryStorage());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -44,6 +47,7 @@ namespace PersonalMailer
             }
 
             app.UseHttpsRedirection();
+            app.UseHangfireServer();
             app.UseMvc();
         }
     }
