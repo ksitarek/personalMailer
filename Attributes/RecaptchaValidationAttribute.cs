@@ -11,6 +11,12 @@ namespace PersonalMailer.Attributes
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+
+#if DEBUG
+            // for debug env allow empty tokens
+            return ValidationResult.Success;
+#endif
+
             var token = value?.ToString();
 
             Lazy<ValidationResult> errorResult = new Lazy<ValidationResult>(
