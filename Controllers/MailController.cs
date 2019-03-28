@@ -17,6 +17,14 @@ namespace PersonalMailer.Controllers
             _sender = sender;
         }
 
+        [HttpHead]
+        public ActionResult Prepare()
+        {
+            // this empty action is to "wake" azure app service.
+            // this is only supposed to prepare appservice to handle actual process request
+            return Ok();
+        }
+
         [HttpPost]
         public ActionResult<SendMailResult> Process([FromBody]SendMailRequest request)
         {
